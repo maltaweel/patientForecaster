@@ -89,11 +89,12 @@ class ReadAssessData:
         n=self.location['N30']
         self.identifiedSick=[]
         vs=self.values[n]
-               
+        
+        self.includedPatientsLocation=[]      
         for i in range(0,len(vs)):
             v=int(vs[i])
                    
-            if(v>18 and v<=85):
+            if(v>=18 and v<=85):
                 nn=self.location['N34']
                 vss=self.values[nn]
                 vv=int(vss[i])
@@ -105,6 +106,7 @@ class ReadAssessData:
                     vvv=int(vsss[i])
                     if(vvv<3):
                         self.identifiedSick.append(self.patients[i])
+                        self.includedPatientsLocation.append(i)
                             
                             
                 
@@ -121,7 +123,7 @@ class ReadAssessData:
         lv=self.timeV[lf]
         rv=self.timeV[rt]
          
-        for i in range(0,len(lv)):
+        for i in self.includedPatientsLocation:
             l=lv[i]
             r=rv[i]
             
