@@ -108,25 +108,42 @@ class ReadAssessData:
                         self.identifiedSick.append(self.patients[i])
                         self.includedPatientsLocation.append(i)
                             
-                            
+    def timeFormat(self, formatt):
+        date_format=''
+        
+        if '/' in formatt and ' ' in formatt:
+            date_format='%m/%d/%Y %H:%M'
+            
+        elif "/" in formatt:
+            date_format='%m/%d/%Y'
+        
+        elif "AM" in formatt or "PM" in formatt:
+            date_format= '%I:%M%p'
+        
+        elif ":" in formatt:
+            date_format = "%H:%M"
+        
+        else:
+            date_format='%d%B%Y:%H:%M'  
+                
+        return date_format                       
                 
     def runTimeAnalysis(self):
         self.lessThreeHundred=[]
         self.greaterThreeHundred=[]
-        
-        #set the date and time format
-        date_format = "%H:%M"
         
         lf=self.timeL['N22'] 
         rt=self.timeL['N6']      
          
         lv=self.timeV[lf]
         rv=self.timeV[rt]
-         
+        
         for i in self.includedPatientsLocation:
             l=lv[i]
             r=rv[i]
             
+            date_format=self.timeFormat(l)
+             
             time1=datetime.strptime(l, date_format)
             time2=datetime.strptime(r, date_format)
             
